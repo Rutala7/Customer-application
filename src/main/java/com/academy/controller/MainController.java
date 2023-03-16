@@ -1,6 +1,9 @@
 package com.academy.controller;
 
 import com.academy.entity.Customer;
+import com.academy.entity.CustomerService;
+import com.academy.exception.CustomerNotAdultException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,20 +12,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class MainController {
 
-    public MainController() {
-        
-    }
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping("/customer/all")
     public List<Customer> fetchCustomers() {
-        return null;
+        return customerService.findAll();
     }
 
     @PostMapping("/customer/insert")
-    public void insertCustomer(@RequestBody Customer customer) {
+    public void insertCustomer(@RequestBody Customer customer) throws CustomerNotAdultException {
+        customerService.insert(customer);
     }
 
     @DeleteMapping("/customer/delete/{customerId}")
     public void deleteCustomer(@PathVariable String customerId) {
+        customerService.deleteById(customerId);
     }
 }

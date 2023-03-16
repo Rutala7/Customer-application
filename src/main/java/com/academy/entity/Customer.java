@@ -1,6 +1,5 @@
 package com.academy.entity;
 
-
 public class Customer {
 
     private String id;
@@ -20,7 +19,59 @@ public class Customer {
     private String gender;
     private String maritalStatus;
 
-    public Customer() {
+    // Creating Builder and deleting the setters
+
+    public static class Builder {
+        private String firstName;
+        private String lastName;
+        private String personalNumber;
+
+        private String middleName;
+        private int age;
+        private String countryCode;
+        private String city;
+        private int monthlyIncome;
+        private String employer;
+        private String gender;
+        private String maritalStatus;
+
+        public Builder(String firstName, String lastName, String personalNumber) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.personalNumber = personalNumber;
+        }
+
+        public Builder withCountryCode(String countryCode) {
+            this.countryCode = countryCode;
+            return this;
+        }
+
+        public Builder withAge(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder withMiddleName(String middleName) {
+            this.middleName = middleName;
+            return this;
+        }
+
+        public Builder withMartialStatus(String martialStatus) {
+            this.maritalStatus = martialStatus;
+            return this;
+        }
+
+        public Customer build() {
+            Customer customer = new Customer();
+            customer.personalNumber = personalNumber;
+            customer.firstName = firstName;
+            customer.lastName = lastName;
+            customer.age = age;
+            customer.countryCode = countryCode;
+            customer.middleName = middleName;
+            customer.maritalStatus = maritalStatus;
+            return customer;
+        }
     }
 
     public String getId() {
@@ -31,90 +82,48 @@ public class Customer {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPersonalNumber() {
         return personalNumber;
     }
 
-    public void setPersonalNumber(String personalNumber) {
-        this.personalNumber = personalNumber;
-    }
-
     public String getMiddleName() {
         return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getCountryCode() {
         return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public String getGender() {
+        return gender;
     }
 
     public int getMonthlyIncome() {
         return monthlyIncome;
     }
 
-    public void setMonthlyIncome(int monthlyIncome) {
-        this.monthlyIncome = monthlyIncome;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getEmployer() {
         return employer;
-    }
-
-    public void setEmployer(String employer) {
-        this.employer = employer;
     }
 
     public String getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(String maritalStatus) {
-        this.maritalStatus = maritalStatus;
-    }
-
+    // We only leave Id setter because it's used to determine which of the customers has to be deleted.
+    // We don't include Id in the builder.
     public void setId(String id) {
         this.id = id;
     }
